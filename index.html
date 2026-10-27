@@ -174,6 +174,9 @@ body.readall .day{display:block}
   border-radius:0 8px 8px 0;text-align:center;overflow-x:auto}
 .formula .fx{font:14.5px/1.9 var(--mono);color:#7A4A0E}
 .formula sup,.formula sub,.formula-i sup,.formula-i sub{font-size:.72em}
+.formula .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 5px;line-height:1.4}
+.formula .frac .num{padding:0 8px 1px}
+.formula .frac .den{padding:1px 8px 0;border-top:1.5px solid currentColor}
 .formula-i{font-family:var(--mono);background:var(--amber-tint);padding:0 5px;border-radius:4px;
   color:#8A5410;font-size:.9em;white-space:nowrap}
 
@@ -251,6 +254,7 @@ body.readall .day{display:block}
   .day{display:block!important;border:none;margin-bottom:28px;page-break-after:always}
   body{background:#fff}
   .note pre{white-space:pre-wrap}
+  .line{flex-wrap:wrap;overflow:visible;row-gap:16px}.line::before{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -582,7 +586,7 @@ body.readall .day{display:block}
 </tbody>
 </table></div>
 <p>通过率计算：</p>
-<div class="formula"><span class="fx">指令通过率= \frac{通过的约束数量}{全部约束数量}×100%</span></div>
+<div class="formula"><span class="fx">指令通过率 = <span class="frac"><span class="num">通过的约束数量</span><span class="den">全部约束数量</span></span> × 100%</span></div>
 <p>如果测试集有 100 条独立约束，其中 93 条通过，那么约束通过率为 93%。</p>
 <p>不过，约束之间可能存在相互依赖，因此还应该记录<strong>整题完全通过率</strong>：只有所有硬性要求都满足，才算整题通过。</p>
 <p>例如，100 道题中有 75 道完全满足所有要求，那么整题通过率就是 75%。</p>
@@ -860,7 +864,7 @@ body.readall .day{display:block}
 <h5 id="d1s28">量化指标</h5>
 <p>假设你有 20 道问题，每道题有唯一标准答案。</p>
 <p>如果模型答对 17 道：</p>
-<div class="formula"><span class="fx">答案准确率=(17) / (20)=85%</span></div>
+<div class="formula"><span class="fx">答案准确率 = <span class="frac"><span class="num">17</span><span class="den">20</span></span> = 85%</span></div>
 <p>但还应该单独记录：</p>
 <ul>
 <li>多跳问题准确率。</li>
@@ -930,7 +934,7 @@ body.readall .day{display:block}
 <p><strong>检索结果相关，不代表最终答案正确；最终答案正确，也不代表模型确实找到了正确来源。</strong></p>
 <p>因此，应尽可能将检索过程和答案生成分开评估。</p>
 <p>例如，假设标准资料中有 10 个必须找到的相关段落，系统找到了其中 8 个：</p>
-<div class="formula"><span class="fx">Recall@K=(8) / (10)=80%</span></div>
+<div class="formula"><span class="fx">Recall@K = <span class="frac"><span class="num">8</span><span class="den">10</span></span> = 80%</span></div>
 <p>如果模型最终给出了正确答案，但引用的段落并不支持该答案，那么答案准确率可能是 100%，引用准确率却不合格。</p>
 <p>这就是为什么企业级 RAG 评测通常需要同时关注检索、生成和证据质量。</p>
 <hr />
@@ -2714,7 +2718,7 @@ send_approved_invitation(invitation_id)
 <p>单纯看成功率，多 Agent 更好。</p>
 <p>但如果每次任务的价值、失败损失和人工修正成本都不同，就不能只看成功率。</p>
 <p>可以比较：</p>
-<div class="formula"><span class="fx">单位有效任务成本 = \frac{总成本}{成功完成的任务数}</span></div>
+<div class="formula"><span class="fx">单位有效任务成本 = <span class="frac"><span class="num">总成本</span><span class="den">成功完成的任务数</span></span></span></div>
 <p>假设每种方案都执行 100 次：</p>
 <ul>
 <li>单 Agent 预计成功 80 次，总成本 200 元，单位有效任务成本为 2.50 元。</li>
@@ -5636,7 +5640,7 @@ PRD 生成
 </table></div>
 <p>在这组假设数据中，预算违反率下降了 14 个百分点。</p>
 <p>相对降幅为：</p>
-<div class="formula"><span class="fx">(18%-4%) / (18%)≈77.8%</span></div>
+<div class="formula"><span class="fx"><span class="frac"><span class="num">18%-4%</span><span class="den">18%</span></span> ≈ 77.8%</span></div>
 <p>但平均响应时间和成本都增加了。</p>
 <p>因此，产品经理需要判断：这次优化带来的质量收益，是否值得额外的时间和成本？</p>
 <p>另外，100 个测试样本只能提供初步证据。对于重要决策，还需要考虑样本代表性、统计不确定性，以及是否存在不同任务类型之间的效果差异。</p>
@@ -5837,7 +5841,7 @@ PRD 生成
 <li>人工审核与返工成本。</li>
 </ul>
 <p>一个很有用的指标是：</p>
-<div class="formula"><span class="fx">单位成功任务成本 = \frac{总系统成本}{成功完成的任务数}</span></div>
+<div class="formula"><span class="fx">单位成功任务成本 = <span class="frac"><span class="num">总系统成本</span><span class="den">成功完成的任务数</span></span></span></div>
 <p>假设：</p>
 <ul>
 <li>系统 A 总成本为 1,000 元，成功完成 800 个任务。</li>
@@ -6699,7 +6703,7 @@ PRD 生成
 <div class="formula"><span class="fx">10+90+10=110分钟</span></div>
 <p>原始耗时为 240 分钟，节省的时间为 130 分钟。</p>
 <p>时间节省比例为：</p>
-<div class="formula"><span class="fx">(240-110) / (240)≈54.2%</span></div>
+<div class="formula"><span class="fx"><span class="frac"><span class="num">240-110</span><span class="den">240</span></span> ≈ 54.2%</span></div>
 <p>这只是一个假设案例。真实评估时，还应该考虑不同任务难度、返工次数、系统成本和质量差异。</p>
 <p>更重要的是，比较时要保证任务质量大体相当。</p>
 <p>如果 AI 只生成了一份需要大量返工的初稿，而人工流程输出的是可以直接执行的完整方案，那么不能把两者的生成时间直接比较。</p>
@@ -7742,7 +7746,7 @@ PRD 生成
 <p>这是一个重要的系统设计问题。</p>
 <p>假设某个任务有 8 个步骤，每一步独立成功的概率都是 95%。</p>
 <p>如果任务必须所有步骤都成功才能完成，而且暂时假设各步骤成功事件相互独立，那么端到端成功率为：</p>
-<div class="formula"><span class="fx">P(全部成功)=0.95^8</span></div>
+<div class="formula"><span class="fx">P(全部成功)=0.95<sup>8</sup></span></div>
 <p>结果约为：</p>
 <div class="formula"><span class="fx">66.3%</span></div>
 <p>也就是说，每一步看起来都很可靠，但整个任务的成功率可能明显降低。</p>
@@ -8804,7 +8808,7 @@ PRD 生成
 </ul>
 <p>总计 53 分钟。</p>
 <p>时间节省比例为：</p>
-<div class="formula"><span class="fx">时间节省率 = (120-53)/(120)×100% ≈55.8%</span></div>
+<div class="formula"><span class="fx">时间节省率 = <span class="frac"><span class="num">120-53</span><span class="den">120</span></span> × 100% ≈ 55.8%</span></div>
 <p>这才比较接近产品为用户带来的实际效率提升。</p>
 <p>当然，要保证比较公平，还需要让两种方式完成的是相同任务，并采用合理的任务质量标准。</p>
 <h5 id="d9s36">为什么“平均修改轮次”不能单独作为核心指标？</h5>
@@ -9565,7 +9569,7 @@ PRD 生成
 <p>可以将核心指标设为：</p>
 <p><strong>端到端任务完成率。</strong></p>
 <p>计算方式：</p>
-<div class="formula"><span class="fx">任务完成率 = 达到预设完成标准的任务数 符合实验条件的任务数</span></div>
+<div class="formula"><span class="fx">任务完成率 = <span class="frac"><span class="num">达到预设完成标准的任务数</span><span class="den">符合实验条件的任务数</span></span></span></div>
 <p>注意，分子不能只是 AI 返回了最终文档，而应当是任务真正达到预先定义的成功标准。</p>
 <p>例如，只有同时满足以下条件才算完成：</p>
 <ul>
@@ -9723,7 +9727,7 @@ PRD 生成
 <p>绝对提升：</p>
 <div class="formula"><span class="fx">46%-40%=6 个百分点</span></div>
 <p>相对提升：</p>
-<div class="formula"><span class="fx">(46%-40%)/(40%)=15%</span></div>
+<div class="formula"><span class="fx"><span class="frac"><span class="num">46%-40%</span><span class="den">40%</span></span> = 15%</span></div>
 <p>因此，比较准确的表达是：</p>
 <p><strong>任务完成率提高了 6 个百分点，相对提升了 15%。</strong></p>
 <p>这两个说法都正确，但含义不同。</p>
@@ -10272,7 +10276,7 @@ timestamp</code></pre>
 <p>事件示例：</p>
 <pre><code>ai_workspace_opened</code></pre>
 <p>可以计算：</p>
-<div class="formula"><span class="fx">功能进入率 = 进入 AI 功能的用户数 符合条件且获得功能曝光的用户数</span></div>
+<div class="formula"><span class="fx">功能进入率 = <span class="frac"><span class="num">进入 AI 功能的用户数</span><span class="den">符合条件且获得功能曝光的用户数</span></span></span></div>
 <p>如果触达人数很多，但进入率很低，可能是：</p>
 <ul>
 <li>用户不理解功能的价值。</li>
@@ -10290,7 +10294,7 @@ prompt_submitted</code></pre>
 <p>例如，用户进入 AI 工作区，输入了一半 Prompt 后离开。</p>
 <p>如果产品只记录工作区打开，就无法知道用户是否真正发起了任务。</p>
 <p>可以计算：</p>
-<div class="formula"><span class="fx">任务发起率 = 发起有效 AI 任务的用户数 进入 AI 功能的用户数</span></div>
+<div class="formula"><span class="fx">任务发起率 = <span class="frac"><span class="num">发起有效 AI 任务的用户数</span><span class="den">进入 AI 功能的用户数</span></span></span></div>
 <p>如果任务发起率低，可以检查：</p>
 <ul>
 <li>用户不知道应该输入什么。</li>
@@ -10308,7 +10312,7 @@ response_displayed</code></pre>
 <p>也可能因为超时，模型虽然处理了请求，但用户没有得到可用结果。</p>
 <p>因此，建议分别记录。</p>
 <p>可以计算：</p>
-<div class="formula"><span class="fx">有效响应率 = 获得有效响应的任务数 已提交的有效任务数</span></div>
+<div class="formula"><span class="fx">有效响应率 = <span class="frac"><span class="num">获得有效响应的任务数</span><span class="den">已提交的有效任务数</span></span></span></div>
 <p>这个指标适合判断模型调用链路是否正常，但不能代表用户是否满意。</p>
 <h5 id="d10s58">第五层：查看与交互</h5>
 <p>事件示例：</p>
